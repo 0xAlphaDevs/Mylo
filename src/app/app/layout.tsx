@@ -30,7 +30,7 @@ export default function Creator({
   return (
     <section className="">
       <Navbar links={links} />
-      <div className=""> {children}</div>
+      <div className="px-12 py-4"> {children}</div>
     </section>
   )
 }

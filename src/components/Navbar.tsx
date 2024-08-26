@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
 
   useEffect(() => {
     if (isDisconnected) {
-      router.push("/");
+      router.push("/app");
     }
   }, [isDisconnected]);
 
