@@ -1,9 +1,11 @@
-import React from 'react'
+"use client";
+import React from "react";
+import { useAccount, useBalance } from "wagmi";
 
 const Wallets = () => {
-  return (
-    <div>Wallets</div>
-  )
-}
+  const { address } = useAccount();
+  const { data } = useBalance({ address: address });
+  return <div>Wallets : {data?.formatted}</div>;
+};
 
-export default Wallets
+export default Wallets;
