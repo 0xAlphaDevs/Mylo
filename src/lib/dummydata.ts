@@ -1,11 +1,19 @@
 export interface Wallet {
   id: string;
   name: string;
-  balance: string;
+  account: string;
 }
 
 export const dummyWallets: Wallet[] = [
-  { id: "1", name: "Wallet 1", balance: "2.5 ETH" },
-  { id: "2", name: "Wallet 2", balance: "0.75 ETH" },
-  { id: "3", name: "Wallet 3", balance: "1.2 ETH" },
+  { id: "1", name: "14567", account: "0x173928474578299347" },
+  { id: "2", name: "2674", account: "0x173928474578299347" },
+  { id: "3", name: "34987", account: "0x1478299347" },
 ];
+
+export interface WalletCardProps {
+  wallet: {
+    id: string;
+    name: string;
+    account: string;
+  };
+}
