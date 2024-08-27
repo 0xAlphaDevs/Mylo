@@ -21,7 +21,7 @@ const WalletCard: React.FC<WalletCardProps> = ({ wallet }) => {
   };
 
   return (
-    <Card className="shadow-md">
+    <Card className="shadow-md hover:shadow-xl">
       <CardContent className="flex justify-between items-center pt-4">
         <div className="flex flex-col gap-2">
           <CardTitle>{wallet.name}</CardTitle>

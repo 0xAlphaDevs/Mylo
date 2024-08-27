@@ -19,10 +19,10 @@ const Wallets = () => {
       {wallets.length > 0 ? (
         <div className="flex flex-col gap-4 px-12 pt-8">
           <div className="flex justify-between items-center">
-            <p className="font-semibold text-xl"> Wallets</p>
+            <p className="text-3xl font-medium"> Wallets</p>
             <CreateWallet />
           </div>
-          <div className="flex flex-col gap-4 pt-8">
+          <div className="flex flex-col gap-6 pt-8 ">
             {wallets.map(wallet => (
               <WalletCard key={wallet.id} wallet={wallet} />
             ))}

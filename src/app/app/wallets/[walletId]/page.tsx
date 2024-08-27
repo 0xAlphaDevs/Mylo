@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter, useParams } from "next/navigation";
 import { MoveLeftIcon } from "lucide-react";
 import { dummyWallets } from "@/lib/dummydata";
+import { Button } from "@/components/ui/button";
 
 const WalletOverview = () => {
   const router = useRouter();
@@ -20,16 +21,10 @@ const WalletOverview = () => {
   };
 
   return (
-    <div className="py-8 px-80">
+    <div className=" pt-8 px-12">
       <div className="flex justify-between items-center mb-8">
-        <div
-          className="h-6 w-6 cursor-pointer mr-2"
-          onClick={handleBackClick}
-        >
-          <MoveLeftIcon className="h-6 w-6" />
-        </div>
         <div className="text-3xl font-medium">Wallet Overview</div>
-        <div></div>
+        <Button onClick={handleBackClick}>Go back to Wallets</Button>
       </div>
       <div className="shadow-md p-8">
         <div className="flex flex-col items-center">
