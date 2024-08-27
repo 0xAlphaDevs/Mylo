@@ -28,7 +28,7 @@ export default function Home() {
             Welcome to MYLO !
           </h1>
           <p className="text-muted-foreground">
-            A Global Loyalty Program Aggregator
+            A Multichain Loyalty Program Aggregator using token bound accounts.
           </p>
         </div>
       </div>
@@ -37,21 +37,21 @@ export default function Home() {
         <Card className="shadow-sm border-none h-full w-full rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              This is a sample feature
+              Mint token bound MyloNFT wallets
             </CardDescription>
           </CardHeader>
         </Card>
         <Card className="shadow-sm border-none h-full w-full rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              This is a sample feature
+              Seamless multichain bridging using Wormhole NTT
             </CardDescription>
           </CardHeader>
         </Card>
         <Card className="shadow-sm border-none h-full w-full rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              This is a sample feature
+              Transfer and trade ERC-6551 NFT wallets and loyalty points pre-TGE
             </CardDescription>
           </CardHeader>
         </Card>
