@@ -18,19 +18,20 @@ const Test = () => {
     chain: arbitrumSepolia,
   });
 
-  // const createAccount = useCallback(async () => {
-  //   if (!tokenboundClient || !address) return;
-  //   const createdAccount = await tokenboundClient.createAccount({
-  //     tokenContract: myloWalletNFTAddress, // nft token contract address
-  //     tokenId: "1",
-  //   });
-  //   alert(`new account: ${createdAccount}`);
-  // }, [tokenboundClient]);
+  const createAccount = useCallback(async () => {
+    if (!tokenboundClient || !address) return;
+    const createdAccount = await tokenboundClient.createAccount({
+      tokenContract: myloWalletNFTAddress, // nft token contract address
+      tokenId: "0",
+    });
+
+    console.log(createdAccount);
+  }, [tokenboundClient]);
 
   const transferETH = async () => {
     if (!tokenboundClient || !address) return;
     const executedTransfer = await tokenboundClient.transferETH({
-      account: "0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C", // to change
+      account: "0x37377808534632Ff7237cC8Eb46C8b1E0D7661a1", // for mylo wallet #0
       recipientAddress: recipientAddress,
       amount: 0.001,
     });
@@ -40,7 +41,7 @@ const Test = () => {
   const getAccount = async () => {
     const account = await tokenboundClient.getAccount({
       tokenContract: myloWalletNFTAddress,
-      tokenId: "1",
+      tokenId: "0",
     });
 
     console.log(account);
@@ -51,6 +52,8 @@ const Test = () => {
       Test Page
       <br />
       <button onClick={getAccount}>Get Account</button>
+      <br />
+      <button onClick={createAccount}>Create Account</button>
       <br />
       <button onClick={transferETH}>Transfer ETH</button>
     </div>
