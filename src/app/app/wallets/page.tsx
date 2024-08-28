@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import CreateWallet from "@/components/wallet/CreateWallet";
 import WalletCard from "@/components/wallet/WalletCard";
 import { WalletIcon } from "lucide-react";
@@ -11,12 +11,13 @@ import {
   address as myloWalletNFTAddress,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Wallets = () => {
   const { address } = useAccount();
   const [nftWallets, setNftWallets] = React.useState<any[]>([]);
 
-  const result = useReadContract({
+  const { data: nftData, isLoading } = useReadContract({
     abi,
     address: myloWalletNFTAddress as `0x${string}`,
     functionName: "getAllMyloWalletNFTsForUser",
@@ -24,11 +25,67 @@ const Wallets = () => {
   });
 
   useEffect(() => {
-    console.log(result.data);
-    if (result.data) {
-      setNftWallets(result.data as string[]);
+    console.log(nftData);
+    if (nftData) {
+      setNftWallets(nftData as string[]);
     }
-  }, [result.data]);
+  }, [nftData]);
+
+  if (isLoading) {
+    return <div>
+      {/* {nftWallets.length > 0 ? ( */}
+      <div className="flex flex-col gap-4 px-12 pt-8">
+        <div className="flex justify-between items-center">
+          <Skeleton className="h-10 w-40 rounded-lg" />
+          <Skeleton className="h-10 w-40 rounded-lg" />
+        </div>
+        <div className="flex flex-col gap-6 pt-8 ">
+          <Card className="shadow-md hover:shadow-xl">
+            <CardContent className="flex justify-between items-center pt-4">
+              <div className="flex flex-col gap-2">
+                <Skeleton className="h-6 w-40 rounded-lg" />
+                <Skeleton className="h-6 w-48 rounded-lg" />
+              </div>
+              <Skeleton className="h-10 w-40 rounded-lg" />
+            </CardContent>
+          </Card>
+        </div>
+        <div className="flex flex-col gap-6 pt-8 ">
+          <Card className="shadow-md hover:shadow-xl">
+            <CardContent className="flex justify-between items-center pt-4">
+              <div className="flex flex-col gap-2">
+                <Skeleton className="h-6 w-40 rounded-lg" />
+                <Skeleton className="h-6 w-48 rounded-lg" />
+              </div>
+              <Skeleton className="h-10 w-40 rounded-lg" />
+            </CardContent>
+          </Card>
+        </div>
+        <div className="flex flex-col gap-6 pt-8 ">
+          <Card className="shadow-md hover:shadow-xl">
+            <CardContent className="flex justify-between items-center pt-4">
+              <div className="flex flex-col gap-2">
+                <Skeleton className="h-6 w-40 rounded-lg" />
+                <Skeleton className="h-6 w-48 rounded-lg" />
+              </div>
+              <Skeleton className="h-10 w-40 rounded-lg" />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+      {/* // ) : (
+      //   <div className="px-80 py-28">
+      //     <Card className="shadow-md">
+      //       <div className="flex flex-col items-center justify-center gap-4 py-12">
+      //         <Skeleton className="h-10 w-40 rounded-lg" />
+      //         <Skeleton className="h-20 w-28 rounded-lg" />
+      //         <Skeleton className="h-10 w-40 rounded-lg" />
+      //       </div>
+      //     </Card>
+      //   </div>
+      // )} */}
+    </div>;
+  }
 
   return (
     <div>

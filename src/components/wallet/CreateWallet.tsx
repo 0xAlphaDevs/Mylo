@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../ui/button";
 import { useAccount, useWriteContract } from "wagmi";
 import { useToast } from "../ui/use-toast";
@@ -9,10 +9,10 @@ import { address, abi } from "@/lib/contracts/MyloWalletNFT.json";
 const CreateWallet = () => {
   const { address: walletAddress } = useAccount();
   const { toast } = useToast();
-
   const {
-    isPending: isTxnPending,
-    isSuccess: isTxnSuccess,
+    isPending,
+    isSuccess,
+    error,
     writeContract,
   } = useWriteContract();
 
@@ -24,10 +24,6 @@ const CreateWallet = () => {
         functionName: "safeMint",
         args: [walletAddress],
       });
-      toast({
-        variant: "success",
-        description: "Wallet created successfully!",
-      });
     } catch (error) {
       toast({
         variant: "destructive",
@@ -35,6 +31,26 @@ const CreateWallet = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (isPending) {
+      toast({
+        variant: "default",
+        title: "Minting NFT ...",
+        description: "MyloWallet NFT minting in progress!",
+      });
+    }
+  }, [isPending]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        variant: "success",
+        title: "NFT Minted !!",
+        description: "MyloWallet NFT minted successfully!",
+      });
+    }
+  }, [isSuccess]);
 
   return (
     <div>

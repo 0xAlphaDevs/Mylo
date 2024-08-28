@@ -33,25 +33,25 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-8 px-20 py-8 ">
-        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+      <div className="grid grid-cols-3 gap-8 px-20">
+        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-yellow-200 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              Mint token bound MyloNFT wallets
+              Mint token bound <span className="font-semibold"> MyloNFT wallets</span>
             </CardDescription>
           </CardHeader>
         </Card>
-        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-yellow-200 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              Seamless multichain bridging using Wormhole NTT
+              Seamless multichain bridging using<span className="font-semibold"> Wormhole NTT</span>
             </CardDescription>
           </CardHeader>
         </Card>
-        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+        <Card className="shadow-sm border-none h-full w-full rounded-lg bg-yellow-200 bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardDescription className="text-center pt-1 text-lg text-black">
-              Transfer and trade ERC-6551 NFT wallets and loyalty points pre-TGE
+              Transfer and trade<span className="font-semibold"> ERC-6551 NFT wallets </span>and loyalty points pre-TGE
             </CardDescription>
           </CardHeader>
         </Card>
