@@ -11,9 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { CopyIcon, FileCheckIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
@@ -24,7 +24,12 @@ import {
   address as myloWalletNFTAddress,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -108,32 +113,30 @@ const WalletOverview = () => {
       console.error("Error creating account:", error);
       toast({
         title: "Error",
-        description: "There was an issue creating the account. Please try again.",
+        description:
+          "There was an issue creating the account. Please try again.",
         duration: 3000,
         variant: "destructive",
       });
-    }
-    finally {
+    } finally {
       setIsCreating(false);
     }
   }, [tokenboundClient]);
 
   // 🟡
-  const transferETH = async (e
-    : React.FormEvent<HTMLFormElement>
-  ) => {
+  const transferETH = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!tokenboundClient || !address) return;
     console.log(formData);
     const executedTransfer = await tokenboundClient.transferETH({
       account: nftAccount,
       recipientAddress: formData.recipientAddress as `0x${string}`,
-      amount: Number(formData.amount) * 10 ** 18,
+      amount: Number(formData.amount),
     });
-    executedTransfer &&
-      alert(
-        `Sent ${formData.amount} ETH to ${formData.recipientAddress}`
-      );
+    // executedTransfer &&
+    //   alert(
+    //     `Sent ${formData.amount} ETH to ${formData.recipientAddress}`
+    //   );
   };
 
   useEffect(() => {
@@ -146,54 +149,60 @@ const WalletOverview = () => {
   });
 
   if (isLoading) {
-    return <div className=" pt-8 px-12">
-      <div className="flex justify-between items-center mb-8">
-        <Skeleton className="h-10 w-48 rounded-full" />
-        <Skeleton className="h-10 w-48 rounded-lg" />
-      </div>
-      <div className=" flex justify-between py-8">
-        <div className="flex flex-col gap-2">
-          <Skeleton className="h-8 w-60 rounded-full" />
-          <Skeleton className="h-6 w-96 rounded-full" />
+    return (
+      <div className=" pt-8 px-12">
+        <div className="flex justify-between items-center mb-8">
+          <Skeleton className="h-10 w-48 rounded-full" />
+          <Skeleton className="h-10 w-48 rounded-lg" />
         </div>
-        {isAccountActive ? (
-          <div className="flex gap-8 items-center justify-center">
-            <Skeleton className="h-10 w-40 rounded-lg" />
-            <Skeleton className="h-10 w-40 rounded-lg" />
+        <div className=" flex justify-between py-8">
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-8 w-60 rounded-full" />
+            <Skeleton className="h-6 w-96 rounded-full" />
           </div>
-        ) : (
-          <div className="flex gap-8 items-center justify-center">
-            <Skeleton className="h-10 w-40 rounded-lg" />
-          </div>
-        )}
+          {isAccountActive ? (
+            <div className="flex gap-8 items-center justify-center">
+              <Skeleton className="h-10 w-40 rounded-lg" />
+              <Skeleton className="h-10 w-40 rounded-lg" />
+            </div>
+          ) : (
+            <div className="flex gap-8 items-center justify-center">
+              <Skeleton className="h-10 w-40 rounded-lg" />
+            </div>
+          )}
+        </div>
+        <div className="flex justify-between gap-8">
+          <Card className="w-[50%]">
+            <CardHeader>
+              <Skeleton className="h-6 w-32 rounded-full" />
+            </CardHeader>
+            <CardContent className="flex justify-between items-center text-md">
+              <Skeleton className="h-6 w-20 rounded-full" />
+              <Skeleton className="h-6 w-24 rounded-full" />
+            </CardContent>
+          </Card>
+          <Card className="w-[50%]">
+            <CardHeader>
+              <Skeleton className="h-6 w-32 rounded-full" />
+            </CardHeader>
+            <CardContent className="flex justify-center">
+              <Skeleton className="h-48 w-52 rounded-lg" />
+            </CardContent>
+          </Card>
+        </div>
       </div>
-      <div className="flex justify-between gap-8">
-        <Card className="w-[50%]">
-          <CardHeader>
-            <Skeleton className="h-6 w-32 rounded-full" />
-          </CardHeader>
-          <CardContent className="flex justify-between items-center text-md">
-            <Skeleton className="h-6 w-20 rounded-full" />
-            <Skeleton className="h-6 w-24 rounded-full" />
-          </CardContent>
-        </Card>
-        <Card className="w-[50%]">
-          <CardHeader>
-            <Skeleton className="h-6 w-32 rounded-full" />
-          </CardHeader>
-          <CardContent className="flex justify-center">
-            <Skeleton className="h-48 w-52 rounded-lg" />
-          </CardContent>
-        </Card>
-      </div>
-    </div>;
+    );
   }
 
   return (
     <div className=" pt-8 px-12">
       <div className="flex justify-between items-center mb-8">
         <div className="text-2xl font-medium">Wallet Overview</div>
-        <Button onClick={handleGoBackToWallets} variant="outline" className="font-semibold">
+        <Button
+          onClick={handleGoBackToWallets}
+          variant="outline"
+          className="font-semibold"
+        >
           Go back to Wallets
         </Button>
       </div>
@@ -225,10 +234,17 @@ const WalletOverview = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Image src="/etherscan.png" width={15} height={15} alt="Logo" />
+                    <Image
+                      src="/etherscan.png"
+                      width={15}
+                      height={15}
+                      alt="Logo"
+                    />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p className="text-sm text-center">View on block explorer</p>
+                    <p className="text-sm text-center">
+                      View on block explorer
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -290,11 +306,12 @@ const WalletOverview = () => {
                       />
                     </div>
                   </div>
-                  <Button type="submit" className="w-full">Transfer ETH</Button>
+                  <Button type="submit" className="w-full">
+                    Transfer ETH
+                  </Button>
                 </form>
               </DialogContent>
             </Dialog>
-
           </div>
         ) : (
           <div className="flex gap-8 items-center justify-center">
