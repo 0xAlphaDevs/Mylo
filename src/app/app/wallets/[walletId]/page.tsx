@@ -2,8 +2,18 @@
 
 import React, { useState, useEffect, useCallback, use } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { dummyWallets } from "@/lib/dummydata";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { CopyIcon, FileCheckIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
@@ -18,6 +28,11 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 
+interface FormData {
+  recipientAddress: string;
+  amount: number;
+}
+
 const WalletOverview = () => {
   const router = useRouter();
   const { walletId } = useParams();
@@ -25,8 +40,13 @@ const WalletOverview = () => {
   const [copied, setCopied] = useState(false);
   const [nftAccount, setNftAccount] = useState<any>();
   const [isAccountActive, setIsAccountActive] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const { address, chainId, chain } = useAccount();
   const signer = useEthersSigner({ chainId: chainId });
+  const [formData, setFormData] = useState<FormData>({
+    recipientAddress: "",
+    amount: 0,
+  });
 
   const tokenboundClient = new TokenboundClient({
     signer,
@@ -35,7 +55,7 @@ const WalletOverview = () => {
 
   const { data: balance, isLoading } = useBalance({ address: nftAccount });
 
-  const handleBackClick = () => {
+  const handleGoBackToWallets = () => {
     router.back();
   };
 
@@ -66,39 +86,64 @@ const WalletOverview = () => {
 
   const handleWalletCreate = useCallback(async () => {
     if (!tokenboundClient || !address) return;
-    console.log("Creating account", myloWalletNFTAddress, walletId);
-
-    const createdAccount = await tokenboundClient.createAccount({
-      tokenContract: myloWalletNFTAddress as `0x${string}`, // nft token contract address
-      tokenId: walletId as string,
-    });
-
-    console.log(createdAccount);
+    setIsCreating(true);
     toast({
-      title: "NFT Wallet Activated !",
-      description: "Your account has been created successfully",
-      duration: 3000,
-      variant: "success",
+      description: "Activating your NFT Wallet...",
+      variant: "default",
     });
+    try {
+      console.log("Creating account", myloWalletNFTAddress, walletId);
+      const createdAccount = await tokenboundClient.createAccount({
+        tokenContract: myloWalletNFTAddress as `0x${string}`, // nft token contract address
+        tokenId: walletId as string,
+      });
+      console.log(createdAccount);
+      toast({
+        title: "NFT Wallet Activated!",
+        description: "Your account has been created successfully",
+        duration: 3000,
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error creating account:", error);
+      toast({
+        title: "Error",
+        description: "There was an issue creating the account. Please try again.",
+        duration: 3000,
+        variant: "destructive",
+      });
+    }
+    finally {
+      setIsCreating(false);
+    }
   }, [tokenboundClient]);
 
   // 🟡
-  const transferETH = async () => {
+  const transferETH = async (e
+    : React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
     if (!tokenboundClient || !address) return;
+    console.log(formData);
     const executedTransfer = await tokenboundClient.transferETH({
-      account: nftAccount, // for mylo wallet #0
-      recipientAddress: "0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C", // TO DO: take input in modal 1. send to MyloWallet 2. send to custom address
-      amount: 0.005, // TO DO: take input in modal
+      account: nftAccount,
+      recipientAddress: formData.recipientAddress as `0x${string}`,
+      amount: Number(formData.amount) * 10 ** 18,
     });
     executedTransfer &&
       alert(
-        `Sent ${0.001} ETH to ${"0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C"}`
+        `Sent ${formData.amount} ETH to ${formData.recipientAddress}`
       );
   };
 
   useEffect(() => {
     getAccount();
   }, []);
+
+  const handleResetForm = () => ({
+    recipientAddress: "",
+    amount: "",
+  });
 
   if (isLoading) {
     return <div className=" pt-8 px-12">
@@ -148,7 +193,7 @@ const WalletOverview = () => {
     <div className=" pt-8 px-12">
       <div className="flex justify-between items-center mb-8">
         <div className="text-2xl font-medium">Wallet Overview</div>
-        <Button onClick={handleBackClick} variant="outline" className="font-semibold">
+        <Button onClick={handleGoBackToWallets} variant="outline" className="font-semibold">
           Go back to Wallets
         </Button>
       </div>
@@ -193,11 +238,69 @@ const WalletOverview = () => {
         {isAccountActive ? (
           <div className="flex gap-8 items-center justify-center">
             <Button>Connect Wallet to Dapp</Button>
-            <Button onClick={transferETH}>Transfer ETH</Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button onClick={handleResetForm}>Transfer ETH</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Transfer ETH</DialogTitle>
+                  <DialogDescription>
+                    Enter the required details to transfer ETH.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={transferETH}>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="recipientAddress" className="text-right">
+                        Recipient Address
+                      </Label>
+                      <Input
+                        id="recipientAddress"
+                        type="text"
+                        placeholder="0x..."
+                        className="col-span-3"
+                        value={formData.recipientAddress}
+                        onChange={(e: { target: { value: any } }) =>
+                          setFormData({
+                            ...formData,
+                            recipientAddress: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="amount" className="text-right">
+                        Amount
+                      </Label>
+                      <Input
+                        id="amount"
+                        placeholder="0.00"
+                        className="col-span-3"
+                        type="number"
+                        value={formData.amount}
+                        onChange={(e: { target: { value: any } }) =>
+                          setFormData({
+                            ...formData,
+                            amount: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full">Transfer ETH</Button>
+                </form>
+              </DialogContent>
+            </Dialog>
+
           </div>
         ) : (
           <div className="flex gap-8 items-center justify-center">
-            <Button onClick={handleWalletCreate}>Activate NFT Wallet</Button>
+            <Button onClick={handleWalletCreate} disabled={isCreating}>
+              Activate NFT Wallet
+            </Button>
           </div>
         )}
       </div>

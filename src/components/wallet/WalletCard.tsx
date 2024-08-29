@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { WalletCardProps } from "@/lib/dummydata";
-import { CopyIcon } from "lucide-react";
+import { CopyIcon, FileCheckIcon } from "lucide-react";
 import { TokenboundClient } from "@tokenbound/sdk";
 import { useEthersSigner } from "@/hooks";
 import { arbitrumSepolia } from "viem/chains";
@@ -61,7 +61,7 @@ const WalletCard = ({ wallet }: any) => {
             <CardDescription>Account: {nftAccount}</CardDescription>
             <div onClick={handleCopyToClipboard}>
               {copied ? (
-                <CopyIcon className="text-green-500 h-4 w-4" />
+                <FileCheckIcon className="text-green-500 h-4 w-4" />
               ) : (
                 <CopyIcon className="text-gray-400 h-4 w-4" />
               )}

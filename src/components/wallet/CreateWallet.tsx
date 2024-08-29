@@ -36,8 +36,7 @@ const CreateWallet = () => {
     if (isPending) {
       toast({
         variant: "default",
-        title: "Minting NFT ...",
-        description: "MyloWallet NFT minting in progress!",
+        description: "MyloWallet NFT minting is in progress...",
       });
     }
   }, [isPending]);
