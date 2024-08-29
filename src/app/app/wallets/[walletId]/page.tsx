@@ -274,6 +274,7 @@ const WalletOverview = () => {
         </div>
         {isAccountActive ? (
           <div className="flex gap-8 items-center justify-center">
+            {/* TO DO : 🟡 */}
             <Button>Connect Wallet to Dapp</Button>
             {/* transfer ETH */}
             <Dialog>
