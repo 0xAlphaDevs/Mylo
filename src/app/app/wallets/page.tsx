@@ -33,7 +33,6 @@ const Wallets = () => {
 
   if (isLoading) {
     return <div>
-      {/* {nftWallets.length > 0 ? ( */}
       <div className="flex flex-col gap-4 px-12 pt-8">
         <div className="flex justify-between items-center">
           <Skeleton className="h-10 w-40 rounded-lg" />
@@ -73,17 +72,6 @@ const Wallets = () => {
           </Card>
         </div>
       </div>
-      {/* // ) : (
-      //   <div className="px-80 py-28">
-      //     <Card className="shadow-md">
-      //       <div className="flex flex-col items-center justify-center gap-4 py-12">
-      //         <Skeleton className="h-10 w-40 rounded-lg" />
-      //         <Skeleton className="h-20 w-28 rounded-lg" />
-      //         <Skeleton className="h-10 w-40 rounded-lg" />
-      //       </div>
-      //     </Card>
-      //   </div>
-      // )} */}
     </div>;
   }
 

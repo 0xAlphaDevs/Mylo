@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { dummyWallets } from "@/lib/dummydata";
 import { Button } from "@/components/ui/button";
-import { CopyIcon } from "lucide-react";
+import { CopyIcon, FileCheckIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { TokenboundClient } from "@tokenbound/sdk";
@@ -14,6 +14,7 @@ import {
   address as myloWalletNFTAddress,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const WalletOverview = () => {
   const router = useRouter();
@@ -36,10 +37,13 @@ const WalletOverview = () => {
   };
 
   const handleCopyToClipboard = () => {
-    router.push(chain?.blockExplorers?.default.url + `/address/${nftAccount}`);
     navigator.clipboard.writeText(nftAccount);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+  };
+
+  const handleTransactionView = () => {
+    router.push(chain?.blockExplorers?.default.url + `/address/${nftAccount}`);
   };
 
   const getAccount = async () => {
@@ -104,11 +108,32 @@ const WalletOverview = () => {
               {nftAccount}
             </div>
             <div onClick={handleCopyToClipboard}>
-              {copied ? (
-                <CopyIcon className="text-green-500 h-4 w-4" />
-              ) : (
-                <CopyIcon className="text-gray-400 h-4 w-4" />
-              )}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    {copied ? (
+                      <FileCheckIcon className="text-green-500 h-4 w-4" />
+                    ) : (
+                      <CopyIcon className="text-gray-400 h-4 w-4" />
+                    )}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-sm text-center">Copy to clipboard</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            <div onClick={handleTransactionView}>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Image src="/etherscan.png" width={15} height={15} alt="Logo" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-sm text-center">View on block explorer</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
         </div>
