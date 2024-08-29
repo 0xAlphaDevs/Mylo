@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, use } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { dummyWallets } from "@/lib/dummydata";
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,13 @@ import {
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/components/ui/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const WalletOverview = () => {
   const router = useRouter();
   const { walletId } = useParams();
+  const { toast } = useToast();
   const [copied, setCopied] = useState(false);
   const [nftAccount, setNftAccount] = useState<any>();
   const [isAccountActive, setIsAccountActive] = useState(false);
@@ -30,7 +33,7 @@ const WalletOverview = () => {
     chain: chain,
   });
 
-  const { data: balance } = useBalance({ address: nftAccount });
+  const { data: balance, isLoading } = useBalance({ address: nftAccount });
 
   const handleBackClick = () => {
     router.back();
@@ -71,6 +74,12 @@ const WalletOverview = () => {
     });
 
     console.log(createdAccount);
+    toast({
+      title: "NFT Wallet Activated !",
+      description: "Your account has been created successfully",
+      duration: 3000,
+      variant: "success",
+    });
   }, [tokenboundClient]);
 
   // 🟡
@@ -91,11 +100,55 @@ const WalletOverview = () => {
     getAccount();
   }, []);
 
+  if (isLoading) {
+    return <div className=" pt-8 px-12">
+      <div className="flex justify-between items-center mb-8">
+        <Skeleton className="h-10 w-48 rounded-full" />
+        <Skeleton className="h-10 w-48 rounded-lg" />
+      </div>
+      <div className=" flex justify-between py-8">
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-8 w-60 rounded-full" />
+          <Skeleton className="h-6 w-96 rounded-full" />
+        </div>
+        {isAccountActive ? (
+          <div className="flex gap-8 items-center justify-center">
+            <Skeleton className="h-10 w-40 rounded-lg" />
+            <Skeleton className="h-10 w-40 rounded-lg" />
+          </div>
+        ) : (
+          <div className="flex gap-8 items-center justify-center">
+            <Skeleton className="h-10 w-40 rounded-lg" />
+          </div>
+        )}
+      </div>
+      <div className="flex justify-between gap-8">
+        <Card className="w-[50%]">
+          <CardHeader>
+            <Skeleton className="h-6 w-32 rounded-full" />
+          </CardHeader>
+          <CardContent className="flex justify-between items-center text-md">
+            <Skeleton className="h-6 w-20 rounded-full" />
+            <Skeleton className="h-6 w-24 rounded-full" />
+          </CardContent>
+        </Card>
+        <Card className="w-[50%]">
+          <CardHeader>
+            <Skeleton className="h-6 w-32 rounded-full" />
+          </CardHeader>
+          <CardContent className="flex justify-center">
+            <Skeleton className="h-48 w-52 rounded-lg" />
+          </CardContent>
+        </Card>
+      </div>
+    </div>;
+  }
+
   return (
     <div className=" pt-8 px-12">
       <div className="flex justify-between items-center mb-8">
         <div className="text-2xl font-medium">Wallet Overview</div>
-        <Button onClick={handleBackClick} variant="outline">
+        <Button onClick={handleBackClick} variant="outline" className="font-semibold">
           Go back to Wallets
         </Button>
       </div>
