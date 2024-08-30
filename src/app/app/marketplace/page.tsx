@@ -1,39 +1,85 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Search, Heart, ShoppingCart } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Search, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 
 interface NFTCard {
-  id: number
-  title: string
-  image: string
-  price: number
-  creator: string
-  category: string
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  creator: string;
+  category: string;
 }
 
 const nfts: NFTCard[] = [
-  { id: 1, title: "Abstract Harmony", image: "/logo.png?height=200&width=400", price: 0.5, creator: "Artist1", category: "art" },
-  { id: 2, title: "Digital Dreams", image: "/logo.png?height=400&width=400", price: 0.7, creator: "Artist2", category: "photography" },
-  { id: 3, title: "Neon Nights", image: "/logo.png?height=400&width=400", price: 0.3, creator: "Artist3", category: "music" },
-  { id: 4, title: "Pixel Paradise", image: "/logo.png?height=400&width=400", price: 0.6, creator: "Artist4", category: "art" },
-  { id: 5, title: "Crypto Cats", image: "/logo.png?height=400&width=400", price: 0.4, creator: "Artist5", category: "collectibles" },
-  { id: 6, title: "Virtual Vistas", image: "/logo.png?height=400&width=400", price: 0.8, creator: "Artist6", category: "photography" },
-]
+  {
+    id: 1,
+    title: "Abstract Harmony",
+    image: "/logo.png?height=200&width=400",
+    price: 0.5,
+    creator: "Artist1",
+    category: "art",
+  },
+  {
+    id: 2,
+    title: "Digital Dreams",
+    image: "/logo.png?height=400&width=400",
+    price: 0.7,
+    creator: "Artist2",
+    category: "photography",
+  },
+  {
+    id: 3,
+    title: "Neon Nights",
+    image: "/logo.png?height=400&width=400",
+    price: 0.3,
+    creator: "Artist3",
+    category: "music",
+  },
+  {
+    id: 4,
+    title: "Pixel Paradise",
+    image: "/logo.png?height=400&width=400",
+    price: 0.6,
+    creator: "Artist4",
+    category: "art",
+  },
+  {
+    id: 5,
+    title: "Crypto Cats",
+    image: "/logo.png?height=400&width=400",
+    price: 0.4,
+    creator: "Artist5",
+    category: "collectibles",
+  },
+  {
+    id: 6,
+    title: "Virtual Vistas",
+    image: "/logo.png?height=400&width=400",
+    price: 0.8,
+    creator: "Artist6",
+    category: "photography",
+  },
+];
 
-const categories = ["all", "art", "photography", "music", "collectibles"]
+const categories = ["all", "art", "photography", "music", "collectibles"];
 
 export default function Component() {
   return (
     <div className="relative min-h-screen">
       <div className="absolute inset-0 backdrop-blur-xs bg-background/10 z-10"></div>
       <div className="absolute inset-0 flex items-center justify-center z-20">
-
         <Image src="/coming-soon.png" width={400} height={400} alt="Logo" />
-
       </div>
       <div className="container mx-auto px-4 py-8 opacity-50">
         <header className="flex justify-between items-center mb-8">
@@ -53,7 +99,12 @@ export default function Component() {
         <Tabs defaultValue="all" className="mb-4">
           <TabsList>
             {categories.map((category) => (
-              <TabsTrigger key={category} value={category} className="capitalize" disabled>
+              <TabsTrigger
+                key={category}
+                value={category}
+                className="capitalize"
+                disabled
+              >
                 {category}
               </TabsTrigger>
             ))}
@@ -62,16 +113,26 @@ export default function Component() {
             <TabsContent key={category} value={category}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {nfts
-                  .filter((nft) => category === "all" || nft.category === category)
+                  .filter(
+                    (nft) => category === "all" || nft.category === category
+                  )
                   .map((nft) => (
                     <Card key={nft.id} className="overflow-hidden">
                       <CardHeader className="p-0">
-                        <img src={nft.image} alt={nft.title} className="w-full h-48 object-cover" />
+                        <img
+                          src={nft.image}
+                          alt={nft.title}
+                          className="w-full h-48 object-cover"
+                        />
                       </CardHeader>
                       <CardContent className="p-4">
                         <CardTitle>{nft.title}</CardTitle>
-                        <p className="text-sm text-gray-500">Created by {nft.creator}</p>
-                        <p className="text-lg font-bold mt-2">{nft.price} ETH</p>
+                        <p className="text-sm text-gray-500">
+                          Created by {nft.creator}
+                        </p>
+                        <p className="text-lg font-bold mt-2">
+                          {nft.price} ETH
+                        </p>
                       </CardContent>
                       <CardFooter className="flex justify-between px-4">
                         <Button variant="outline" size="icon" disabled>
@@ -90,5 +151,5 @@ export default function Component() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
