@@ -147,7 +147,8 @@ const WalletOverview = () => {
       console.error("Transfer failed", error);
       toast({
         title: "Transfer Failed",
-        description: "There was an issue with the transaction. Please try again.",
+        description:
+          "There was an issue with the transaction. Please try again.",
         duration: 3000,
         variant: "destructive",
       });
@@ -293,7 +294,10 @@ const WalletOverview = () => {
                     <>
                       <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="recipientAddress" className="text-right">
+                          <Label
+                            htmlFor="recipientAddress"
+                            className="text-right"
+                          >
                             Recipient Address
                           </Label>
                           <Input
@@ -339,7 +343,9 @@ const WalletOverview = () => {
                   {isTransferring && (
                     <div className=" flex flex-col gap-3 items-center justify-center mt-4 text-center ">
                       <Spinner />
-                      <p className="text-sm font-semibold text-muted-foreground">Transfer in progress....</p>
+                      <p className="text-sm font-semibold text-muted-foreground">
+                        Transfer in progress....
+                      </p>
                     </div>
                   )}
                 </form>

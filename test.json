@@ -1,0 +1,38 @@
+{
+  "state": {
+    "connections": {
+      "__type": "Map",
+      "value": [
+        [
+          "4b353bd83bb",
+          {
+            "accounts": ["0x5CD38dd13bF453B9CE114c4E2c380e870A0ABE56"],
+            "chainId": 42161,
+            "connector": {
+              "id": "walletConnect",
+              "name": "WalletConnect",
+              "type": "walletConnect",
+              "uid": "4b353bd83bb"
+            }
+          }
+        ],
+        [
+          "b353bd83bb2",
+          {
+            "accounts": ["0x5CD38dd13bF453B9CE114c4E2c380e870A0ABE56"],
+            "chainId": 1,
+            "connector": {
+              "id": "uniswapWalletConnect",
+              "name": "Uniswap Wallet",
+              "type": "uniswapWalletConnect",
+              "uid": "b353bd83bb2"
+            }
+          }
+        ]
+      ]
+    },
+    "chainId": 42161,
+    "current": "4b353bd83bb"
+  },
+  "version": 2
+}
