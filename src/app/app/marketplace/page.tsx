@@ -79,7 +79,11 @@ export default function Component() {
     <div className="relative min-h-screen">
       <div className="absolute inset-0 backdrop-blur-xs bg-background/10 z-10"></div>
       <div className="absolute inset-0 flex items-center justify-center z-20">
-        <Image src="/coming-soon.png" width={400} height={400} alt="Logo" />
+        {/* <Image src="/coming-soon.png" width={400} height={400} alt="Logo" /> */}
+        <div className="flex flex-col items-center justify-center bg-white rounded-lg p-8 shadow-md w-full">
+          <h1 className="text-xl font-bold">NFT Marketplace</h1>
+          <p className="text-4xl font-semibold text-gray-500">Coming Soon</p>
+        </div>
       </div>
       <div className="container mx-auto px-4 py-8 opacity-50">
         <header className="flex justify-between items-center mb-8">
