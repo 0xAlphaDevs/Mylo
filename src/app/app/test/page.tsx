@@ -5,7 +5,7 @@ import { Web3Wallet, Web3WalletTypes } from "@walletconnect/web3wallet";
 import { buildApprovedNamespaces, getSdkError } from "@walletconnect/utils";
 
 const walletConnectUri =
-  "wc:ce6c90cb2f920cb51de4f1299f1a0db287d37ced2f0a1e6a96f0e88113207a51@2?expiryTimestamp=1725002070&relay-protocol=irn&symKey=2b48d7cfcabd3a982a6eeafb5309b8f2cf9af35167fc0459f9a85eec0390079d";
+  "wc:ce0f9d497a007c1b9c37edd58df44c23515e3e60e0f30e708bd629b67fe3d0c3@2?expiryTimestamp=1725254851&relay-protocol=irn&symKey=adff5420845b2ab7935923b6165ee5130c422b55a846dc0434c52bbc7addd19b";
 
 const Test = () => {
   const pair = async () => {
@@ -15,12 +15,6 @@ const Test = () => {
 
     const web3wallet = await Web3Wallet.init({
       core, // <- pass the shared `core` instance
-      metadata: {
-        name: "Demo app",
-        description: "Demo Client as Wallet/Peer",
-        url: "www.walletconnect.com",
-        icons: [],
-      },
     });
 
     await web3wallet.core.pairing.pair({

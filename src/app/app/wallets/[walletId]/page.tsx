@@ -33,6 +33,9 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import Spinner from "@/components/Spinner";
+import { Core } from "@walletconnect/core";
+import { Web3Wallet, Web3WalletTypes } from "@walletconnect/web3wallet";
+import { buildApprovedNamespaces, getSdkError } from "@walletconnect/utils";
 
 interface FormData {
   recipientAddress: string;
@@ -54,13 +57,19 @@ const WalletOverview = () => {
     recipientAddress: "",
     amount: 0,
   });
+  const [isPairing, setIsPairing] = useState(false);
+  const [walletConnectUri, setWalletConnectUri] = useState("");
 
   const tokenboundClient = new TokenboundClient({
     signer,
     chain: chain,
+    chainId: chainId,
   });
 
-  const { data: balance, isLoading } = useBalance({ address: nftAccount });
+  const { data: balance, isLoading } = useBalance({
+    address: nftAccount,
+    chainId: chainId,
+  });
 
   const handleGoBackToWallets = () => {
     router.back();
@@ -77,6 +86,7 @@ const WalletOverview = () => {
   };
 
   const getAccount = async () => {
+    // setTokenboundClient(tokenboundClient);
     const account = tokenboundClient.getAccount({
       tokenContract: myloWalletNFTAddress as `0x${string}`,
       tokenId: walletId as string,
@@ -89,6 +99,102 @@ const WalletOverview = () => {
     setIsAccountActive(isAccountDeployed);
 
     console.log(account);
+  };
+
+  const pair = async () => {
+    // setIsPairing(true);
+    const core = new Core({
+      projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
+    });
+
+    // TO DO : 🟡
+    const web3wallet = await Web3Wallet.init({
+      core,
+      metadata: {
+        name: "Demo app",
+        description: "Demo Client as Wallet/Peer",
+        url: "www.walletconnect.com",
+        icons: [],
+      },
+    });
+
+    // await web3wallet.core.pairing.pair({
+    //   uri: walletConnectUri,
+    // });
+
+    console.log("web3wallet", web3wallet);
+
+    async function onSessionProposal({
+      id,
+      params,
+    }: Web3WalletTypes.SessionProposal) {
+      try {
+        console.log("session proposal", params);
+
+        // ------- namespaces builder util ------------ //
+        const approvedNamespaces = buildApprovedNamespaces({
+          proposal: params,
+          supportedNamespaces: {
+            eip155: {
+              chains: [`eip155:${chainId}`],
+              methods: [
+                "eth_accounts",
+                "eth_requestAccounts",
+                "eth_sendTransaction",
+                "eth_sendRawTransaction",
+                "eth_sign",
+                "eth_signTransaction",
+                "eth_signTypedData",
+                "eth_signTypedData_v3",
+                "eth_signTypedData_v4",
+                "eth_sendTransaction",
+                "personal_sign",
+                "wallet_switchEthereumChain",
+                "wallet_addEthereumChain",
+                "wallet_getPermissions",
+                "wallet_requestPermissions",
+                "wallet_registerOnboarding",
+                "wallet_watchAsset",
+                "wallet_scanQRCode",
+                "wallet_sendCalls",
+                "wallet_getCapabilities",
+                "wallet_getCallsStatus",
+                "wallet_showCallsStatus",
+              ],
+              events: [
+                "chainChanged",
+                "accountsChanged",
+                "message",
+                "disconnect",
+                "connect",
+              ],
+              accounts: [`eip155:${chainId}:${nftAccount}`],
+            },
+          },
+        });
+        // ------- end namespaces builder util ------------ //
+
+        const session = await web3wallet.approveSession({
+          id,
+          namespaces: approvedNamespaces,
+          // sessionConfig: { disableDeepLink: false },
+        });
+
+        console.log("session", session);
+
+        setIsPairing(false);
+      } catch (error) {
+        // use the error.message to show toast/info-box letting the user know that the connection attempt was unsuccessful
+        await web3wallet.rejectSession({
+          id: id,
+          reason: getSdkError("USER_REJECTED"),
+        });
+        setIsPairing(false);
+      }
+    }
+
+    web3wallet.on("session_proposal", onSessionProposal);
+    await web3wallet.pair({ uri: walletConnectUri });
   };
 
   const handleWalletCreate = useCallback(async () => {
@@ -276,7 +382,61 @@ const WalletOverview = () => {
         {isAccountActive ? (
           <div className="flex gap-8 items-center justify-center">
             {/* TO DO : 🟡 */}
-            <Button>Connect Wallet to Dapp</Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>Connect Wallet to Dapp</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Connect NFT Wallet</DialogTitle>
+                  <DialogDescription>
+                    Enter the wallet connect URI to connect your wallet to a
+                    Dapp.
+                  </DialogDescription>
+                </DialogHeader>
+
+                {!isPairing && (
+                  <>
+                    <div className="grid gap-4 py-4">
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label
+                          htmlFor="recipientAddress"
+                          className="text-right"
+                        >
+                          Wallet Connect URI
+                        </Label>
+                        <Input
+                          id="recipientAddress"
+                          type="text"
+                          placeholder="wc:..."
+                          className="col-span-3"
+                          value={walletConnectUri}
+                          onChange={(e: { target: { value: any } }) => {
+                            setWalletConnectUri(e.target.value);
+                          }}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <Button
+                      onClick={pair}
+                      className="w-full"
+                      disabled={isPairing}
+                    >
+                      Connect Wallet
+                    </Button>
+                  </>
+                )}
+                {isPairing && (
+                  <div className=" flex flex-col gap-3 items-center justify-center mt-4 text-center ">
+                    <Spinner />
+                    <p className="text-sm font-semibold text-muted-foreground">
+                      Connecting wallet to Dapp....
+                    </p>
+                  </div>
+                )}
+              </DialogContent>
+            </Dialog>
             {/* transfer ETH */}
             <Dialog>
               <DialogTrigger asChild>
