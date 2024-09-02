@@ -102,7 +102,7 @@ const WalletOverview = () => {
   };
 
   const pair = async () => {
-    // setIsPairing(true);
+    setIsPairing(true);
     const core = new Core({
       projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
     });
@@ -136,7 +136,7 @@ const WalletOverview = () => {
           proposal: params,
           supportedNamespaces: {
             eip155: {
-              chains: [`eip155:${chainId}`],
+              chains: [`eip155:${chainId}`, `eip155:1`],
               methods: [
                 "eth_accounts",
                 "eth_requestAccounts",
@@ -168,7 +168,10 @@ const WalletOverview = () => {
                 "disconnect",
                 "connect",
               ],
-              accounts: [`eip155:${chainId}:${nftAccount}`],
+              accounts: [
+                `eip155:${chainId}:${nftAccount}`,
+                `eip155:1:${nftAccount}`,
+              ],
             },
           },
         });
@@ -183,6 +186,13 @@ const WalletOverview = () => {
         console.log("session", session);
 
         setIsPairing(false);
+        setWalletConnectUri("");
+        toast({
+          title: "Wallet Connected",
+          description: "Your wallet has been connected successfully",
+          duration: 3000,
+          variant: "success",
+        });
       } catch (error) {
         // use the error.message to show toast/info-box letting the user know that the connection attempt was unsuccessful
         await web3wallet.rejectSession({
@@ -190,6 +200,14 @@ const WalletOverview = () => {
           reason: getSdkError("USER_REJECTED"),
         });
         setIsPairing(false);
+        setWalletConnectUri("");
+        toast({
+          title: "Error",
+          description:
+            "There was an issue connecting the wallet. Please try again.",
+          duration: 3000,
+          variant: "destructive",
+        });
       }
     }
 
