@@ -8,7 +8,7 @@ import React, { useEffect, useMemo } from "react";
 import { useAccount, useBalance } from "wagmi";
 import { useReadContract } from "wagmi";
 import {
-  arbitrumAddress as myloWalletNFTAddress,
+  sepoliaAddress as myloWalletNFTAddress,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -28,6 +28,8 @@ const Wallets = () => {
     console.log(nftData);
     if (nftData) {
       setNftWallets(nftData as string[]);
+    } else {
+      setNftWallets([]);
     }
   }, [nftData]);
 

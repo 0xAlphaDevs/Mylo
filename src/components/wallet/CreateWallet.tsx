@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { useAccount, useWriteContract } from "wagmi";
 import { useToast } from "../ui/use-toast";
 import {
-  arbitrumAddress as address,
+  sepoliaAddress as address,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
 

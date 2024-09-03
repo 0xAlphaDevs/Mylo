@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAccount, useReadContract, useChainId } from "wagmi";
 import {
-  arbitrumAddress as myloWalletNFTAddress,
+  sepoliaAddress as myloWalletNFTAddress,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
 import {
@@ -21,13 +21,41 @@ import {
   optimismSepolia,
 } from "wagmi/chains";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useWriteContract } from "wagmi";
+import {
+  abi as myloWalletNFTBridgeEntrypointABI,
+  sepoliaAddress,
+  arbitrumAddress,
+} from "@/lib/contracts/MyloWalletNFTBridgeEntrypoint.json";
 
 const availableChains = [
-  { id: baseSepolia.id, name: baseSepolia.name },
+  // { id: baseSepolia.id, name: baseSepolia.name },
   { id: arbitrumSepolia.id, name: arbitrumSepolia.name },
-  { id: sepolia.id, name: sepolia.name },
-  { id: optimismSepolia.id, name: optimismSepolia.name },
+  // { id: sepolia.id, name: sepolia.name },
+  // { id: optimismSepolia.id, name: optimismSepolia.name },
 ];
+
+function chainIdtoWormholeChainId(chainId: string | null): string {
+  switch (chainId) {
+    case "421614":
+      return "10003";
+    case "11155111":
+      return "10002";
+    default:
+      return "1";
+  }
+}
+
+function getBridgeEntrypointAddress(chainId: number): string {
+  switch (chainId) {
+    case 421614:
+      return arbitrumAddress;
+    case 11155111:
+      return sepoliaAddress;
+    default:
+      return "0x";
+  }
+}
 
 const Bridge = () => {
   const { address } = useAccount();
@@ -45,6 +73,17 @@ const Bridge = () => {
     args: [address],
   });
 
+  const { data: cost } = useReadContract({
+    address: "0xCCF31d992aa2616E47B1c0860fD1e4787892dF49",
+    abi: myloWalletNFTBridgeEntrypointABI,
+    functionName: "quoteCrossChainGreeting",
+    args: [10003],
+  });
+
+  console.log(cost);
+
+  const { isPending, isSuccess, error, writeContract } = useWriteContract();
+
   useEffect(() => {
     if (nftData) {
       setNftWallets(nftData as string[]);
@@ -53,16 +92,34 @@ const Bridge = () => {
 
   const filteredChains = availableChains.filter((c) => c.id !== currentChainId);
 
-  const handleSelectionChange = (field: string, value: string) => {
+  const handleSelectionChange = (field: string, value: string): any => {
     setSelection((prevSelection) => ({
       ...prevSelection,
       [field]: value,
     }));
   };
 
-  const handleBridgeClick = () => {
-    console.log("Selected NFT:", selection.nft);
-    console.log("Selected Chain:", selection.chain);
+  const handleBridgeClick = async () => {
+    const targetChain = chainIdtoWormholeChainId(selection.chain);
+    const targetAddress = getBridgeEntrypointAddress(Number(selection.chain));
+
+    const bridgeEntrypointAddress = getBridgeEntrypointAddress(currentChainId);
+
+    console.log(
+      targetChain,
+      targetAddress,
+      Number(selection.nft),
+      bridgeEntrypointAddress,
+      BigInt(Number(cost))
+    );
+
+    writeContract({
+      address: bridgeEntrypointAddress as `0x${string}`,
+      abi: myloWalletNFTBridgeEntrypointABI,
+      functionName: "sendCrossChainMessage",
+      args: [targetChain, targetAddress, selection.nft],
+      value: BigInt(Number(cost)),
+    });
   };
 
   if (isLoading) {

@@ -1,0 +1,112 @@
+{
+  "sepoliaAddress": "0xCCF31d992aa2616E47B1c0860fD1e4787892dF49",
+  "arbitrumAddress": "0x91613572F36F7d39a2e820656C6db8C68cED5b2D",
+  "abi": [
+    {
+      "type": "constructor",
+      "inputs": [
+        {
+          "name": "_wormholeRelayer",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "_myloWalletNFT",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "myloWalletNFT",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "contract IMyloWalletNFT"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "quoteCrossChainGreeting",
+      "inputs": [
+        { "name": "targetChain", "type": "uint16", "internalType": "uint16" }
+      ],
+      "outputs": [
+        { "name": "cost", "type": "uint256", "internalType": "uint256" }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "receiveWormholeMessages",
+      "inputs": [
+        { "name": "payload", "type": "bytes", "internalType": "bytes" },
+        { "name": "", "type": "bytes[]", "internalType": "bytes[]" },
+        { "name": "", "type": "bytes32", "internalType": "bytes32" },
+        { "name": "sourceChain", "type": "uint16", "internalType": "uint16" },
+        { "name": "", "type": "bytes32", "internalType": "bytes32" }
+      ],
+      "outputs": [],
+      "stateMutability": "payable"
+    },
+    {
+      "type": "function",
+      "name": "sendCrossChainMessage",
+      "inputs": [
+        { "name": "targetChain", "type": "uint16", "internalType": "uint16" },
+        {
+          "name": "targetAddress",
+          "type": "address",
+          "internalType": "address"
+        },
+        { "name": "tokenId", "type": "uint256", "internalType": "uint256" }
+      ],
+      "outputs": [],
+      "stateMutability": "payable"
+    },
+    {
+      "type": "function",
+      "name": "wormholeRelayer",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "contract IWormholeRelayer"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "event",
+      "name": "NFTReceived",
+      "inputs": [
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        },
+        {
+          "name": "senderChain",
+          "type": "uint16",
+          "indexed": false,
+          "internalType": "uint16"
+        },
+        {
+          "name": "sender",
+          "type": "address",
+          "indexed": false,
+          "internalType": "address"
+        }
+      ],
+      "anonymous": false
+    }
+  ]
+}

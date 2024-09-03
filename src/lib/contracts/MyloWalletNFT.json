@@ -1,5 +1,6 @@
 {
-  "arbitrumAddress": "0x9edb204f176f7182d6a6c3d4fd2381267ca8c97d",
+  "sepoliaAddress": "0x57E5b6b320c689430Ae4484B08702d822fFCE106",
+  "arbitrumAddress": "0x9a801880fD3a1739d5732009a7098bDcD5525543",
   "celoAddress": "0x9edb204f176f7182d6a6c3d4fd2381267ca8c97d",
   "avalancheAddress": "0x9edb204f176f7182d6a6c3d4fd2381267ca8c97d",
   "abi": [
