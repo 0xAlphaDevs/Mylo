@@ -1,5 +1,7 @@
 {
-  "address": "0x9edb204f176f7182d6a6c3d4fd2381267ca8c97d",
+  "arbitrumAddress": "0x9edb204f176f7182d6a6c3d4fd2381267ca8c97d",
+  "celoAddress": "0x9edb204f176f7182d6a6c3d4fd2381267ca8c97d",
+  "avalancheAddress": "0x9edb204f176f7182d6a6c3d4fd2381267ca8c97d",
   "abi": [
     {
       "inputs": [],

@@ -21,7 +21,7 @@ import { TokenboundClient } from "@tokenbound/sdk";
 import { useEthersSigner } from "@/hooks";
 import { useAccount, useBalance } from "wagmi";
 import {
-  address as myloWalletNFTAddress,
+  arbitrumAddress as myloWalletNFTAddress,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
 import {

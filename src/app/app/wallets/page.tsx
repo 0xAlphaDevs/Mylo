@@ -8,7 +8,7 @@ import React, { useEffect, useMemo } from "react";
 import { useAccount, useBalance } from "wagmi";
 import { useReadContract } from "wagmi";
 import {
-  address as myloWalletNFTAddress,
+  arbitrumAddress as myloWalletNFTAddress,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -32,47 +32,49 @@ const Wallets = () => {
   }, [nftData]);
 
   if (isLoading) {
-    return <div>
-      <div className="flex flex-col gap-4 px-12 pt-8">
-        <div className="flex justify-between items-center">
-          <Skeleton className="h-10 w-40 rounded-lg" />
-          <Skeleton className="h-10 w-40 rounded-lg" />
-        </div>
-        <div className="flex flex-col gap-6 pt-8 ">
-          <Card className="shadow-md hover:shadow-xl">
-            <CardContent className="flex justify-between items-center pt-4">
-              <div className="flex flex-col gap-2">
-                <Skeleton className="h-6 w-40 rounded-lg" />
-                <Skeleton className="h-6 w-48 rounded-lg" />
-              </div>
-              <Skeleton className="h-10 w-40 rounded-lg" />
-            </CardContent>
-          </Card>
-        </div>
-        <div className="flex flex-col gap-6 pt-8 ">
-          <Card className="shadow-md hover:shadow-xl">
-            <CardContent className="flex justify-between items-center pt-4">
-              <div className="flex flex-col gap-2">
-                <Skeleton className="h-6 w-40 rounded-lg" />
-                <Skeleton className="h-6 w-48 rounded-lg" />
-              </div>
-              <Skeleton className="h-10 w-40 rounded-lg" />
-            </CardContent>
-          </Card>
-        </div>
-        <div className="flex flex-col gap-6 pt-8 ">
-          <Card className="shadow-md hover:shadow-xl">
-            <CardContent className="flex justify-between items-center pt-4">
-              <div className="flex flex-col gap-2">
-                <Skeleton className="h-6 w-40 rounded-lg" />
-                <Skeleton className="h-6 w-48 rounded-lg" />
-              </div>
-              <Skeleton className="h-10 w-40 rounded-lg" />
-            </CardContent>
-          </Card>
+    return (
+      <div>
+        <div className="flex flex-col gap-4 px-12 pt-8">
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-10 w-40 rounded-lg" />
+            <Skeleton className="h-10 w-40 rounded-lg" />
+          </div>
+          <div className="flex flex-col gap-6 pt-8 ">
+            <Card className="shadow-md hover:shadow-xl">
+              <CardContent className="flex justify-between items-center pt-4">
+                <div className="flex flex-col gap-2">
+                  <Skeleton className="h-6 w-40 rounded-lg" />
+                  <Skeleton className="h-6 w-48 rounded-lg" />
+                </div>
+                <Skeleton className="h-10 w-40 rounded-lg" />
+              </CardContent>
+            </Card>
+          </div>
+          <div className="flex flex-col gap-6 pt-8 ">
+            <Card className="shadow-md hover:shadow-xl">
+              <CardContent className="flex justify-between items-center pt-4">
+                <div className="flex flex-col gap-2">
+                  <Skeleton className="h-6 w-40 rounded-lg" />
+                  <Skeleton className="h-6 w-48 rounded-lg" />
+                </div>
+                <Skeleton className="h-10 w-40 rounded-lg" />
+              </CardContent>
+            </Card>
+          </div>
+          <div className="flex flex-col gap-6 pt-8 ">
+            <Card className="shadow-md hover:shadow-xl">
+              <CardContent className="flex justify-between items-center pt-4">
+                <div className="flex flex-col gap-2">
+                  <Skeleton className="h-6 w-40 rounded-lg" />
+                  <Skeleton className="h-6 w-48 rounded-lg" />
+                </div>
+                <Skeleton className="h-10 w-40 rounded-lg" />
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>;
+    );
   }
 
   return (

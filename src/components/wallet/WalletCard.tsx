@@ -11,7 +11,7 @@ import { useEthersSigner } from "@/hooks";
 import { arbitrumSepolia } from "viem/chains";
 import { useAccount, useBalance } from "wagmi";
 import {
-  address as myloWalletNFTAddress,
+  arbitrumAddress as myloWalletNFTAddress,
   abi,
 } from "@/lib/contracts/MyloWalletNFT.json";
 
