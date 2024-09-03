@@ -1,6 +1,6 @@
-### Mylo (Omnichain Token Bound Accounts | Powered by Wormhole)
+## Mylo (Omnichain Token Bound Accounts | Powered by Wormhole)
 
-## Use Cases
+### Use Cases
 
 - Mylo can act as seamless multi-chain loyalty program aggregator using your NFTs as wallets( ERC 6551 token bound accounts).
 - Mylo can also provide a unique experience for multi-chain assets management.
@@ -18,7 +18,7 @@
 
 ## Links
 
-- [Deployed URL]()
+- [Deployed URL](https://mylo.alphadevs.dev/)
 - [Presentation](https://www.canva.com/design/DAGPfKTioxE/PNtFERQrEqPK8DfoiEY54A/view)
 - [Video]()
 
@@ -35,33 +35,32 @@
 ## High Level Architecture
 
 ![image](/public/appDemo/architecture.png)
-![image](/public/appDemo/architecture-2.png)
 
 ## App Demo Screenshots
 
 **_Landing Page_**
 ![image](/public/appDemo/landing-page.png)
 
-**_Creator Dashboard_**
-![image](/public/appDemo/creator-dashboard.png)
+**_Dashboard_**
+![image](/public/appDemo/dashboard.png)
 
-**_Create New Product_**
-![image](/public/appDemo/create-new-product.png)
+**_Mint MyloWalletNFT_**
+![image](/public/appDemo/mint-mylowalletnft.png)
 
-**_Earnings_**
-![image](/public/appDemo/earnings.png)
+**_View Wallet_**
+![image](/public/appDemo/view-wallet.png)
 
-**_Marketplace_**
-![image](/public/appDemo/marketplace.png)
+**_Activate NFT Wallet_**
+![image](/public/appDemo/activate-nft-wallet.png)
 
-**_Product Overview_**
-![image](/public/appDemo/product-overview.png)
+**_Transfer ETH_**
+![image](/public/appDemo/transfer-eth.png)
 
-**_My Purchases_**
-![image](/public/appDemo/my-purchases.png)
+**_Connect Wallet To Dapp_**
+![image](/public/appDemo/connect-wallet-to-dapp.png)
 
-**_Wallet_**
-![image](/public/appDemo/wallet.png)
+**_Bridge NFT Wallet_**
+![image](/public/appDemo/bridge-nft-wallet.png)
 
 ## Future Vision
 
