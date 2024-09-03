@@ -1,10 +1,9 @@
-## Mylo
+### Mylo (Omnichain Token Bound Accounts | Powered by Wormhole)
 
-Mylo is a Multichain Loyalty Program Aggregator using token bound accounts.
+## Use Cases
 
-## Features
-
--
+- Mylo can act as seamless multi-chain loyalty program aggregator using your NFTs as wallets( ERC 6551 token bound accounts).
+- Mylo can also provide a unique experience for multi-chain assets management.
 
 ## Table of Contents
 
@@ -20,7 +19,7 @@ Mylo is a Multichain Loyalty Program Aggregator using token bound accounts.
 ## Links
 
 - [Deployed URL]()
-- [Presentation]()
+- [Presentation](https://www.canva.com/design/DAGPfKTioxE/PNtFERQrEqPK8DfoiEY54A/view)
 - [Video]()
 
 ## Deployed Contract
@@ -29,7 +28,9 @@ Mylo is a Multichain Loyalty Program Aggregator using token bound accounts.
 
 ## Tech Stack
 
--
+- Wormhole
+- ERC-6551 Token Bound Accounts
+- Tokenbound SDK
 
 ## High Level Architecture
 
@@ -64,7 +65,8 @@ Mylo is a Multichain Loyalty Program Aggregator using token bound accounts.
 
 ## Future Vision
 
--
+- Build a marketplace to trade ERC-6551 wallets that contains specific assets, loyalty points or tokens.
+- Apply for incubator and build our MVP.
 
 ## Instructions to Setup
 
