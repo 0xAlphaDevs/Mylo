@@ -4,17 +4,15 @@ import React, { useEffect } from "react";
 import { Button } from "../ui/button";
 import { useAccount, useWriteContract } from "wagmi";
 import { useToast } from "../ui/use-toast";
-import { address, abi } from "@/lib/contracts/MyloWalletNFT.json";
+import {
+  arbitrumAddress as address,
+  abi,
+} from "@/lib/contracts/MyloWalletNFT.json";
 
 const CreateWallet = () => {
   const { address: walletAddress } = useAccount();
   const { toast } = useToast();
-  const {
-    isPending,
-    isSuccess,
-    error,
-    writeContract,
-  } = useWriteContract();
+  const { isPending, isSuccess, error, writeContract } = useWriteContract();
 
   const handleNFTmint = async () => {
     try {
