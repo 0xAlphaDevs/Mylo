@@ -31,6 +31,16 @@ const CreateWallet = () => {
   };
 
   useEffect(() => {
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Error!",
+        description: "Failed to create wallet. Try Again!",
+      });
+    }
+  }, [error]);
+
+  useEffect(() => {
     if (isPending) {
       toast({
         variant: "default",
