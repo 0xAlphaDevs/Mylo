@@ -27,6 +27,7 @@ import {
   sepoliaAddress,
   arbitrumAddress,
 } from "@/lib/contracts/MyloWalletNFTBridgeEntrypoint.json";
+import { useToast } from "@/components/ui/use-toast";
 
 const availableChains = [
   // { id: baseSepolia.id, name: baseSepolia.name },
@@ -59,6 +60,7 @@ function getBridgeEntrypointAddress(chainId: number): string {
 
 const Bridge = () => {
   const { address } = useAccount();
+  const { toast } = useToast();
   const currentChainId = useChainId();
   const [nftWallets, setNftWallets] = useState<any[]>([]);
   const [selection, setSelection] = useState({
@@ -89,6 +91,16 @@ const Bridge = () => {
       setNftWallets(nftData as string[]);
     }
   }, [nftData]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        variant: "success",
+        title: "NFT Bridged!!",
+        description: "MyloWallet NFT bridged successfully!",
+      });
+    }
+  }, [isSuccess]);
 
   const filteredChains = availableChains.filter((c) => c.id !== currentChainId);
 
@@ -194,7 +206,11 @@ const Bridge = () => {
           </Select>
         </div>
         <div className="flex justify-center">
-          <Button className="mt-4" onClick={handleBridgeClick}>
+          <Button
+            className="mt-4"
+            onClick={handleBridgeClick}
+            disabled={isPending}
+          >
             Bridge NFT
           </Button>
         </div>
