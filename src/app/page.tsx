@@ -21,7 +21,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="flex flex-col justify-center gap-4 items-center">
+      <div className="flex flex-col justify-center gap-4 items-center mt-8">
         <Image src="/logo.png" width={150} height={150} alt="Logo" />
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-4xl font-bold text-primary ">
