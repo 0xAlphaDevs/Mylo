@@ -24,7 +24,10 @@
 
 ## Deployed Contract
 
-- [MyloWalletNFT - 0x9edb204f176f7182d6a6c3d4fd2381267ca8c97d]()
+- [MyloWalletNFT (Sepolia) - 0x57E5b6b320c689430Ae4484B08702d822fFCE106]()
+- [MyloWalletNFT (Arbitrum Sepolia) - 0x9a801880fD3a1739d5732009a7098bDcD5525543]()
+- [MyloWalletNFTBridgeEntrypoint (Sepolia) - 0xCCF31d992aa2616E47B1c0860fD1e4787892dF49]()
+- [MyloWalletNFTBridgeEntrypoint (Arbitrum Sepolia) - 0x91613572F36F7d39a2e820656C6db8C68cED5b2D]()
 
 ## Tech Stack
 
