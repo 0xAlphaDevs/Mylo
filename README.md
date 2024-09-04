@@ -20,7 +20,7 @@
 
 - [Deployed URL](https://mylo.alphadevs.dev/)
 - [Presentation](https://www.canva.com/design/DAGPfKTioxE/PNtFERQrEqPK8DfoiEY54A/view)
-- [Video]()
+- [Video](https://youtu.be/h4pRkVfGiBY)
 
 ## Deployed Contract
 
